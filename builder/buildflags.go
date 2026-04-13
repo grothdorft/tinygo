@@ -64,9 +64,11 @@ func (f *BuildFlags) TagsString() string {
 }
 
 // DefaultBuildFlags returns a BuildFlags with sensible defaults.
+// Note: using opt level "2" instead of "z" for easier debugging of generated
+// code during development. Switch back to "z" for size-optimized releases.
 func DefaultBuildFlags() *BuildFlags {
 	return &BuildFlags{
-		Opt:       "z",
+		Opt:       "2",
 		GC:        "conservative",
 		Scheduler: "tasks",
 		Debug:     true,
