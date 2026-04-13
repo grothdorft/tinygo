@@ -64,12 +64,13 @@ func (f *BuildFlags) TagsString() string {
 }
 
 // DefaultBuildFlags returns a BuildFlags with sensible defaults.
-// Using opt level "z" for size-optimized output, which is more appropriate
-// for the embedded/microcontroller targets this project focuses on.
-// Switch to "2" if you need easier debugging of generated code.
+// Using opt level "s" instead of "z" — "z" can sometimes produce slower code
+// due to aggressive inlining suppression. "s" is a better balance between
+// size and performance for my use cases (RP2040, ESP32-C3).
+// Switch to "z" if flash space is critically tight.
 func DefaultBuildFlags() *BuildFlags {
 	return &BuildFlags{
-		Opt:       "z",
+		Opt:       "s",
 		GC:        "conservative",
 		Scheduler: "tasks",
 		Debug:     true,
