@@ -26,6 +26,7 @@ func TestBuildFlagsValidate(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			// opt level 3 is not supported by tinygo (llvm backend limitation)
 			name:    "invalid opt level",
 			flags:   BuildFlags{Opt: "3"},
 			wantErr: true,
@@ -70,6 +71,16 @@ func TestBuildFlagsTagsString(t *testing.T) {
 	want := "baremetal cortexm tinygo"
 	if got != want {
 		t.Errorf("TagsString() = %q, want %q", got, want)
+	}
+}
+
+// TestBuildFlagsTagsStringEmpty verifies that an empty tag list returns an
+// empty string rather than a string with a trailing space.
+func TestBuildFlagsTagsStringEmpty(t *testing.T) {
+	f := &BuildFlags{}
+	got := f.TagsString()
+	if got != "" {
+		t.Errorf("TagsString() with no tags = %q, want empty string", got)
 	}
 }
 
