@@ -51,6 +51,12 @@ func TestBuildFlagsValidate(t *testing.T) {
 			flags:   BuildFlags{Scheduler: "goroutines"},
 			wantErr: true,
 		},
+		{
+			// none scheduler is useful for single-threaded bare-metal targets
+			name:    "valid scheduler none",
+			flags:   BuildFlags{Scheduler: "none"},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
