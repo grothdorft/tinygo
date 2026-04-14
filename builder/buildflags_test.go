@@ -57,6 +57,12 @@ func TestBuildFlagsValidate(t *testing.T) {
 			flags:   BuildFlags{Scheduler: "none"},
 			wantErr: false,
 		},
+		{
+			// asyncify scheduler is used for WebAssembly targets
+			name:    "valid scheduler asyncify",
+			flags:   BuildFlags{Scheduler: "asyncify"},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
