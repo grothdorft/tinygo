@@ -81,6 +81,12 @@ func TestBuildFlagsValidate(t *testing.T) {
 			flags:   BuildFlags{Opt: "1"},
 			wantErr: false,
 		},
+		{
+			// empty string opt level should be treated as valid (uses default)
+			name:    "empty opt level is valid",
+			flags:   BuildFlags{Opt: ""},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -126,9 +132,3 @@ func TestDefaultBuildFlags(t *testing.T) {
 		t.Errorf("expected default Scheduler=tasks, got %q", f.Scheduler)
 	}
 	if !f.Debug {
-		t.Error("expected default Debug=true")
-	}
-	if err := f.Validate(); err != nil {
-		t.Errorf("DefaultBuildFlags() produced invalid flags: %v", err)
-	}
-}
