@@ -71,10 +71,14 @@ func (f *BuildFlags) TagsString() string {
 //
 // Disabling Debug by default to reduce binary size during normal iteration;
 // pass -debug explicitly when I need to attach a debugger or inspect DWARF.
+//
+// Using "leaking" GC for quick iteration on bare-metal targets where heap
+// allocation patterns are simple and GC pauses would be disruptive. Switch
+// back to "conservative" for anything with dynamic allocation at runtime.
 func DefaultBuildFlags() *BuildFlags {
 	return &BuildFlags{
 		Opt:       "s",
-		GC:        "conservative",
+		GC:        "leaking",
 		Scheduler: "tasks",
 		Debug:     false,
 	}
