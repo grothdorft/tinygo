@@ -69,6 +69,18 @@ func TestBuildFlagsValidate(t *testing.T) {
 			flags:   BuildFlags{Opt: "s"},
 			wantErr: false,
 		},
+		{
+			// opt level 0 disables optimizations, handy for debugging
+			name:    "valid opt level 0",
+			flags:   BuildFlags{Opt: "0"},
+			wantErr: false,
+		},
+		{
+			// opt level 1 is a light optimization pass
+			name:    "valid opt level 1",
+			flags:   BuildFlags{Opt: "1"},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
