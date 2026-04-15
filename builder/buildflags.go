@@ -75,11 +75,16 @@ func (f *BuildFlags) TagsString() string {
 // Using "leaking" GC for quick iteration on bare-metal targets where heap
 // allocation patterns are simple and GC pauses would be disruptive. Switch
 // back to "conservative" for anything with dynamic allocation at runtime.
+//
+// VerifyIR is now enabled by default — I've been bitten by subtle IR
+// corruption bugs that only showed up at runtime. The compile-time overhead
+// is negligible and catching bad IR early saves a lot of debugging time.
 func DefaultBuildFlags() *BuildFlags {
 	return &BuildFlags{
 		Opt:       "s",
 		GC:        "leaking",
 		Scheduler: "tasks",
 		Debug:     false,
+		VerifyIR:  true,
 	}
 }
