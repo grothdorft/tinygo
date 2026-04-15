@@ -68,11 +68,14 @@ func (f *BuildFlags) TagsString() string {
 // due to aggressive inlining suppression. "s" is a better balance between
 // size and performance for my use cases (RP2040, ESP32-C3).
 // Switch to "z" if flash space is critically tight.
+//
+// Disabling Debug by default to reduce binary size during normal iteration;
+// pass -debug explicitly when I need to attach a debugger or inspect DWARF.
 func DefaultBuildFlags() *BuildFlags {
 	return &BuildFlags{
 		Opt:       "s",
 		GC:        "conservative",
 		Scheduler: "tasks",
-		Debug:     true,
+		Debug:     false,
 	}
 }
