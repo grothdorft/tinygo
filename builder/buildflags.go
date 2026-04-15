@@ -79,11 +79,16 @@ func (f *BuildFlags) TagsString() string {
 // VerifyIR is now enabled by default — I've been bitten by subtle IR
 // corruption bugs that only showed up at runtime. The compile-time overhead
 // is negligible and catching bad IR early saves a lot of debugging time.
+//
+// Switched default Scheduler from "tasks" to "none" — most of my bare-metal
+// projects on RP2040/ESP32-C3 are single-threaded and don't use goroutines.
+// The tasks scheduler adds overhead that isn't needed in those cases. Set
+// explicitly to "tasks" or "asyncify" when goroutines are required.
 func DefaultBuildFlags() *BuildFlags {
 	return &BuildFlags{
 		Opt:       "s",
 		GC:        "leaking",
-		Scheduler: "tasks",
+		Scheduler: "none",
 		Debug:     false,
 		VerifyIR:  true,
 	}
