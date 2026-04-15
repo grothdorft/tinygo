@@ -91,5 +91,7 @@ func DefaultBuildFlags() *BuildFlags {
 		Scheduler: "none",
 		Debug:     false,
 		VerifyIR:  true,
+		// PrintIR off by default; toggle manually when debugging codegen issues.
+		PrintIR: false,
 	}
 }
