@@ -63,6 +63,12 @@ func TestBuildFlagsValidate(t *testing.T) {
 			flags:   BuildFlags{Scheduler: "asyncify"},
 			wantErr: false,
 		},
+		{
+			// opt level s optimizes for size, similar to z but slightly less aggressive
+			name:    "valid opt level s",
+			flags:   BuildFlags{Opt: "s"},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
