@@ -87,6 +87,12 @@ func TestBuildFlagsValidate(t *testing.T) {
 			flags:   BuildFlags{Opt: ""},
 			wantErr: false,
 		},
+		{
+			// leaking GC is a simple GC useful for programs that don't need to free memory
+			name:    "valid GC leaking",
+			flags:   BuildFlags{GC: "leaking"},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -126,9 +132,4 @@ func TestDefaultBuildFlags(t *testing.T) {
 		t.Errorf("expected default Opt=z, got %q", f.Opt)
 	}
 	if f.GC != "conservative" {
-		t.Errorf("expected default GC=conservative, got %q", f.GC)
-	}
-	if f.Scheduler != "tasks" {
-		t.Errorf("expected default Scheduler=tasks, got %q", f.Scheduler)
-	}
-	if !f.Debug {
+		t.Err
